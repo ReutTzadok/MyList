@@ -1,42 +1,43 @@
 package list;
 
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
 public class MyList<T> {
     private T[] array = (T[])new Object[0];
-    int size = 0;
+
+    //------------------------------------------------------------
 
     public void add(T o) {
-        T[] tmp = (T[]) new Object[size + 1];
+        T[] tmp = (T[]) new Object[size() + 1];
 
-        System.arraycopy(array, 0, tmp, 0, size);
+        System.arraycopy(array, 0, tmp, 0, size());
         tmp[tmp.length - 1] = o;
 
         array = tmp;
-        size += 1;
     }
 
+    //--------------------------------------------------------------
+
     public int size() {
-        return size;
+        return array.length;
     }
+
+    //---------------------------------------------------------------
 
     public boolean remove(int i) {
         if (i < array.length && i >= 0) {
-            T[] tmp = (T[]) new Object[size - 1];
+            T[] tmp = (T[]) new Object[size() - 1];
 
             System.arraycopy(array, 0, tmp, 0, i);
-            System.arraycopy(array, i+1, tmp, i, size-1-i);
+            System.arraycopy(array, i+1, tmp, i, size()-1-i);
 
             array = tmp;
-            size -= 1;
 
             return true;
         }
         else
             return false;
     }
+
+    //---------------------------------------------------------------
 
     public boolean remove(T o) {
         boolean contains = false;
@@ -52,18 +53,19 @@ public class MyList<T> {
 
         if (contains) {
 
-            T[] tmp = (T[]) new Object[size - 1];
+            T[] tmp = (T[]) new Object[size() - 1];
 
             System.arraycopy(array, 0, tmp, 0, index);
-            System.arraycopy(array, index+1, tmp, index, size-1-index);
+            System.arraycopy(array, index+1, tmp, index, size()-1-index);
 
             array = tmp;
-            size -= 1;
             return true;
         }
         else
             return false;
     }
+
+    //---------------------------------------------------------------
 
     public T get(int index) {
        if (index < array.length && index >= 0)
@@ -72,6 +74,8 @@ public class MyList<T> {
        else
            return null;
     }
+
+    //---------------------------------------------------------------
 
     public void printAllContext() {
         System.out.print("[ ");
